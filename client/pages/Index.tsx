@@ -943,12 +943,24 @@ export default function Index() {
           '<a$1href="$2"$3 target="_blank" rel="noopener noreferrer">',
         )
         // Enhance headings with proper spacing
-        .replace(/<h([1-6])([^>]*?)>/gi, '<h$1$2 style="margin: 16px 0 8px 0; font-weight: bold;">')
+        .replace(
+          /<h([1-6])([^>]*?)>/gi,
+          '<h$1$2 style="margin: 16px 0 8px 0; font-weight: bold;">',
+        )
         // Enhance paragraphs with proper spacing
-        .replace(/<p([^>]*?)>/gi, '<p$1 style="margin: 8px 0; line-height: 1.6;">')
+        .replace(
+          /<p([^>]*?)>/gi,
+          '<p$1 style="margin: 8px 0; line-height: 1.6;">',
+        )
         // Enhance lists with proper spacing
-        .replace(/<ul([^>]*?)>/gi, '<ul$1 style="margin: 8px 0; padding-left: 20px;">')
-        .replace(/<ol([^>]*?)>/gi, '<ol$1 style="margin: 8px 0; padding-left: 20px;">')
+        .replace(
+          /<ul([^>]*?)>/gi,
+          '<ul$1 style="margin: 8px 0; padding-left: 20px;">',
+        )
+        .replace(
+          /<ol([^>]*?)>/gi,
+          '<ol$1 style="margin: 8px 0; padding-left: 20px;">',
+        )
         .replace(/<li([^>]*?)>/gi, '<li$1 style="margin: 4px 0;">');
 
       // Clean up link text in HTML content
@@ -963,13 +975,15 @@ export default function Index() {
       return (
         <div
           className={`prose prose-sm max-w-none ${isDarkMode ? "prose-invert" : ""}`}
-          style={{
-            // Custom styles for links, lists, and other elements
-            "--tw-prose-links": isDarkMode ? "#60a5fa" : "#2563eb",
-            "--tw-prose-bold": isDarkMode ? "#ffffff" : "#111827",
-            "--tw-prose-headings": isDarkMode ? "#ffffff" : "#111827",
-            "--tw-prose-body": isDarkMode ? "#e5e7eb" : "#374151",
-          } as React.CSSProperties}
+          style={
+            {
+              // Custom styles for links, lists, and other elements
+              "--tw-prose-links": isDarkMode ? "#60a5fa" : "#2563eb",
+              "--tw-prose-bold": isDarkMode ? "#ffffff" : "#111827",
+              "--tw-prose-headings": isDarkMode ? "#ffffff" : "#111827",
+              "--tw-prose-body": isDarkMode ? "#e5e7eb" : "#374151",
+            } as React.CSSProperties
+          }
           dangerouslySetInnerHTML={{ __html: safeHTML }}
         />
       );
@@ -1172,14 +1186,16 @@ export default function Index() {
       });
     } else {
       // First, split text by * ** pattern to create bullet points
-      const bulletSplitText = processedText.replace(/\s*\*\s*\*\*/g, '\n* **');
-      const lines = bulletSplitText.split(/\\n|\n/).filter((line) => line.trim());
+      const bulletSplitText = processedText.replace(/\s*\*\s*\*\*/g, "\n* **");
+      const lines = bulletSplitText
+        .split(/\\n|\n/)
+        .filter((line) => line.trim());
 
       lines.forEach((line, index) => {
         // Handle special bullet points: * **text**
         if (line.trim().match(/^\*\s*\*\*/)) {
           // Extract everything after * ** including the bold part and any text after
-          const content = line.trim().replace(/^\*\s*\*\*/, '');
+          const content = line.trim().replace(/^\*\s*\*\*/, "");
 
           // Process the content to handle bold formatting
           const processedContent = content
@@ -1642,7 +1658,11 @@ export default function Index() {
               >
                 <div
                   className={`${message.type === "user" ? "max-w-[50%] ml-auto" : "w-full"} ${message.type === "user" ? "rounded-2xl rounded-br-md p-4 shadow-sm" : "bg-transparent text-gray-900 p-2"}`}
-                  style={message.type === "user" ? { backgroundColor: "#627792", color: "white" } : {}}
+                  style={
+                    message.type === "user"
+                      ? { backgroundColor: "#627792", color: "white" }
+                      : {}
+                  }
                 >
                   {message.type === "user" ? (
                     <p className="text-sm">{message.content}</p>
@@ -1680,7 +1700,11 @@ export default function Index() {
 
                           // Show complete message using TextProcessor
                           const answer = message.response?.answer || "";
-                          const processed = processContent(answer, darkMode, message.response?.tables);
+                          const processed = processContent(
+                            answer,
+                            darkMode,
+                            message.response?.tables,
+                          );
 
                           return (
                             <div className="space-y-4">
