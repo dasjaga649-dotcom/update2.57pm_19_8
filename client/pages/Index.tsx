@@ -1641,7 +1641,8 @@ export default function Index() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div
-                  className={`${message.type === "user" ? "max-w-[50%] ml-auto" : "max-w-[50%] mr-auto"} ${message.type === "user" ? "bg-blue-600 text-white rounded-2xl rounded-br-md p-4 shadow-sm" : "bg-gray-50 border border-gray-200 text-gray-900 rounded-2xl rounded-bl-md p-4 shadow-sm"}`}
+                  className={`${message.type === "user" ? "max-w-[50%] ml-auto" : "w-full"} ${message.type === "user" ? "rounded-2xl rounded-br-md p-4 shadow-sm" : "bg-transparent text-gray-900 p-2"}`}
+                  style={message.type === "user" ? { backgroundColor: "#627792", color: "white" } : {}}
                 >
                   {message.type === "user" ? (
                     <p className="text-sm">{message.content}</p>
