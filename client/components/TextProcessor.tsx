@@ -99,8 +99,9 @@ const processContent = (content: string, isDarkMode: boolean = false, tables: Ta
     return '';
   });
 
-  // 3. Handle standalone horizontal lines (---)
-  processedContent = processedContent.replace(/^---+$/gm, '---HR_LINE---');
+  // 3. Handle horizontal lines (--- anywhere in content)
+  processedContent = processedContent.replace(/^---+$/gm, '---HR_LINE---'); // Standalone lines
+  processedContent = processedContent.replace(/(\s|^)---(\s|$)/g, '$1---HR_LINE---$2'); // Inline --- with spaces
 
   // 4. Detect SPECIFIC keyword patterns and add animated icons
   // Only match patterns like "Address:", "Phone:", "Email:", etc. (with colon)
